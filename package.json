@@ -1,6 +1,6 @@
 {
   "name": "@ocku/whois",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A tiny whois client for Node.js",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -8,12 +8,13 @@
     "lib"
   ],
   "scripts": {
-    "prepublish": "rm -rf lib && tsc --declaration",
-    "test": "rm -rf lib && tsc --declaration && node --test **/*.test.js"
+    "prepublish": "rm -rf lib && tsc -d -p tsconfig.dist.json",
+    "test": "rm -rf lib && tsc -d && node --test **/*.test.js"
   },
   "keywords": [
-    "typescript",
-    "whois"
+    "whois",
+    "async",
+    "typescript"
   ],
   "author": {
     "email": "feeling@lost.st",
