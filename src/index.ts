@@ -1,6 +1,6 @@
 // types
 import type { LookupOptions } from './types/whois.types'
-// lib
+// utils
 import { lookupInternal } from './utils/lookupInternal'
 import { chooseServer } from './utils/chooseServer'
 // constants
@@ -20,7 +20,9 @@ export const lookup = async (
 ) => {
   let server = options.server ?? chooseServer(domain)
 
-  for (let i = 0, res = ''; i < (options.follow ?? MAX_FOLLOW); i++) {
+  const follow = options.follow ?? MAX_FOLLOW
+
+  for (let i = 0, res = ''; i < follow; i++) {
     res = await lookupInternal(domain, { server, ...options })
 
     const referral = res.match(REFERRAL_PATTERN)?.at(3)

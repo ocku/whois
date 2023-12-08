@@ -61,7 +61,7 @@ describe('utils / query', () => {
 
     t.mock.method(socket, 'write', () =>
       setTimeout(() => {
-        ;['1', '2', '3'].map((s) => socket.emit('data', Buffer.from(s)))
+        ;['1', '2', '3'].map((s) => socket.emit('data', s))
         socket.emit('close')
       }, 100)
     )

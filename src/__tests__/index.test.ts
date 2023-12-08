@@ -18,14 +18,26 @@ describe('whois', () => {
   })
 
   it('should fail if the follow limit is exceeded', async (t) => {
+    let calls = 0
     t.mock.method(
       lookupInternalUtil,
       'lookupInternal',
-      () => 'refer: whois.nic.google'
+      () => `refer: ${++calls}.nic.google`
     )
 
     const res = await lookup('nice.day').catch(() => '__error__')
     assert(res === '__error__')
+  })
+
+  it('should return if "refer" repeats', async (t) => {
+    t.mock.method(
+      lookupInternalUtil,
+      'lookupInternal',
+      () => `refer: same.nic.google`
+    )
+
+    const res = await lookup('nice.day').catch(() => '__error__')
+    assert(res !== '__error__')
   })
 
   it('should attempt to find the followed server in {servers}', async (t) => {

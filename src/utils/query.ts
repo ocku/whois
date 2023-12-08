@@ -7,19 +7,17 @@ import net from 'node:net'
 export const query = async (
   socket: net.Socket,
   domain: string,
-  server: LookupServer,
-  encoding?: BufferEncoding
+  server: LookupServer
 ): Promise<string> =>
   new Promise((resolve, reject) => {
-    let buf = Buffer.from('', encoding)
+    const prefix = server.prefix ?? ''
+    const suffix = server.suffix ?? ''
+    const message = [prefix, domain, suffix].join(' ').trim()
 
-    const message = [server.prefix ?? '', domain, server.suffix ?? '']
-      .join(' ')
-      .trim()
-
+    let buffer = ''
     socket.write(`${message}\r\n`)
-    socket.on('data', (data: Buffer) => (buf = Buffer.concat([buf, data])))
-    socket.once('close', () => resolve(buf.toString(encoding)))
+    socket.once('close', () => resolve(buffer))
+    socket.on('data', (data: string) => (buffer += data))
     socket.once('timeout', () => reject(new Error('query: timeout exceeded')))
     socket.once('error', reject)
   })

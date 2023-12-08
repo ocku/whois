@@ -1,4 +1,5 @@
-import { LookupServer } from '../types/whois.types'
+// types
+import type { LookupServer } from '../types/whois.types'
 
 export default {
   AARP: {

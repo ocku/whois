@@ -1,7 +1,7 @@
-// vendors
-import net from 'node:net'
 // constants
 import servers from '../constants/servers'
+// vendors
+import net from 'node:net'
 
 export const chooseServer = (domain: string) => {
   if (!domain.length) {

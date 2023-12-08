@@ -8,6 +8,7 @@ import { DEFAULT_SRV_PORT } from '../constants/defaults'
 // vendors
 import { SocksClient } from 'socks'
 
+/** perform a single lookup and return its response */
 export const lookupInternal = async (
   domain: string,
   options: Pick<
@@ -32,5 +33,6 @@ export const lookupInternal = async (
       ).socket
     : await connect({ timeout, ...destination })
 
-  return query(socket, domain, server, encoding)
+  socket.setEncoding(encoding ?? 'utf-8')
+  return query(socket, domain, server)
 }
