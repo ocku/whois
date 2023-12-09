@@ -88,6 +88,10 @@ await lookup(toASCII('nic.コム')) // works
 await lookup('nic.コム') // goes through IANA, returns "No match"
 ```
 
+## Requirements
+
+This library requires node 20.10.0 (LTS) to work.
+
 ## Reference
 
 - this project was inspired by [rfc1036/whois](https://github.com/rfc1036/whois) and [FurqanSoftware/node-whois](https://github.com/FurqanSoftware/node-whois).
