@@ -1,7 +1,7 @@
 {
   "name": "@ocku/whois",
-  "version": "1.0.1",
-  "description": "A tiny whois client for Node.js",
+  "version": "1.0.2",
+  "description": "A low overhead asynchronous whois client for Node.js",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [

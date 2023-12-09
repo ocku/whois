@@ -40,6 +40,17 @@ describe('whois', () => {
     assert(res !== '__error__')
   })
 
+  it('should return if "refer" is invalid', async (t) => {
+    t.mock.method(
+      lookupInternalUtil,
+      'lookupInternal',
+      () => `refer: www.verisigninc.com`
+    )
+
+    const res = await lookup('nice.day').catch(() => '__error__')
+    assert(res !== '__error__')
+  })
+
   it('should attempt to find the followed server in {servers}', async (t) => {
     const mockLookupInternal = t.mock.method(
       lookupInternalUtil,

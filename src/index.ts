@@ -7,6 +7,7 @@ import { chooseServer } from './utils/chooseServer'
 import { REFERRAL_PATTERN } from './constants/regex'
 import { MAX_FOLLOW } from './constants/defaults'
 import servers from './constants/servers'
+import { isValidRef } from './utils/isValidRef'
 
 /**
  * Perform a whois lookup on {domain}
@@ -26,7 +27,8 @@ export const lookup = async (
     res = await lookupInternal(domain, { server, ...options })
 
     const referral = res.match(REFERRAL_PATTERN)?.at(3)
-    if (!referral || referral === server.host) {
+
+    if (!referral || referral === server.host || !isValidRef(referral)) {
       return res
     }
 
