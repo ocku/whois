@@ -47,3 +47,27 @@ const options = { timeout: 10000 }
 const res = await lookup('lost.st', options)
 console.log(res) // ...
 ```
+
+## Punycode
+
+Punycode domain lookups are supported, but to keep overhead low, special Unicode characters are not automatically transcoded to LDH.
+
+For clarity:
+
+```js
+const { toASCII } = require('punycode/')
+// this is good
+await lookup('nic.xn--tckwe') // works
+await lookup(toASCII('nic.コム')) // works
+// this is bad
+await lookup('nic.コム') // goes through IANA, returns "No match"
+```
+
+## Requirements
+
+This library requires node 20.10.0 (LTS) to work.
+
+## Reference
+
+- this project was inspired by [rfc1036/whois](https://github.com/rfc1036/whois) and [FurqanSoftware/node-whois](https://github.com/FurqanSoftware/node-whois).
+- it also uses the referral pattern from https://github.com/FurqanSoftware/node-whois/blob/master/index.coffee#L95

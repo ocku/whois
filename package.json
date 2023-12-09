@@ -1,7 +1,7 @@
 {
   "name": "@ocku/whois",
-  "version": "1.0.1",
-  "description": "A tiny whois client for Node.js",
+  "version": "1.0.3",
+  "description": "A low overhead asynchronous whois client for Node.js",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "prepublish": "rm -rf lib && tsc -d -p tsconfig.dist.json",
-    "test": "rm -rf lib && tsc -d && node --test **/*.test.js"
+    "test": "rm -rf lib && tsc -d && node --test"
   },
   "keywords": [
     "whois",
@@ -22,6 +22,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@tsconfig/node20": "^20.1.2",
     "@types/node": "^20.10.4",
     "typescript": "^5.3.3"
   },
@@ -31,5 +32,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ocku/whois.git"
+  },
+  "engines": {
+    "node": ">=20.10.0"
   }
 }
