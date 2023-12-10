@@ -9,6 +9,11 @@ export const connect = (options: net.TcpNetConnectOpts): Promise<net.Socket> =>
       resolve(socket)
     })
 
-    socket.once('timeout', () => reject(new Error('connect: timeout exceeded')))
+    socket.once('timeout', () => {
+      // Avoid ECONNRESET while reading after timeout
+      socket.destroy()
+      reject(new Error('connect: timeout exceeded'))
+    })
+
     socket.once('error', reject)
   })

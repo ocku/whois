@@ -4,7 +4,6 @@ import { connect } from '../connect'
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
 // vendors
-import { EventEmitter } from 'node:stream'
 import net, { NetConnectOpts } from 'node:net'
 
 describe('utils / connect', () => {
@@ -12,7 +11,7 @@ describe('utils / connect', () => {
     const mockConnect = t.mock.method(net, 'connect')
 
     mockConnect.mock.mockImplementation(() => {
-      const emitter = new EventEmitter()
+      const emitter = new net.Socket()
       setTimeout(() => emitter.emit('timeout'), 300)
       return emitter
     })

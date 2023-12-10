@@ -18,6 +18,10 @@ export const query = async (
     socket.write(`${message}\r\n`)
     socket.once('close', () => resolve(buffer))
     socket.on('data', (data: string) => (buffer += data))
-    socket.once('timeout', () => reject(new Error('query: timeout exceeded')))
+    socket.once('timeout', () => {
+      // prevent ECONNRESET while reading after timeout
+      socket.destroy()
+      reject(new Error('query: timeout exceeded'))
+    })
     socket.once('error', reject)
   })
