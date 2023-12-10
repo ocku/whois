@@ -19,7 +19,7 @@ export const query = async (
     socket.once('close', () => resolve(buffer))
     socket.on('data', (data: string) => (buffer += data))
     socket.once('timeout', () => {
-      // Avoid ECONNRESET while reading after timeout
+      // prevent ECONNRESET while reading after timeout
       socket.destroy()
       reject(new Error('query: timeout exceeded'))
     })
