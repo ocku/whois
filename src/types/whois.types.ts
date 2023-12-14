@@ -5,12 +5,12 @@ export type LookupServer = {
   port?: number;
   prefix?: string;
   suffix?: string;
+  encoding?: string;
 };
 
 export type LookupOptions = {
   follow: number;
   server: LookupServer;
   timeout?: number;
-  encoding?: BufferEncoding;
   socksClientOptions?: SocksClientOptions;
 };

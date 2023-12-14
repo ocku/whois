@@ -10,30 +10,30 @@ A low overhead asynchronous whois client for Node.js.
 This library provides a simple interface consisting of a single asynchronous function. It can be used like this:
 
 > [!IMPORTANT]  
-> The `lookup` function always returns a string.
+> The `lookup` function always returns a utf8 string.
 
 ```js
 // format: lookup(domain, options?)
-import { lookup } from '@ocku/whois'
+import { lookup } from '@ocku/whois';
 // or
-const { lookup } = require('@ocku/whois')
+const { lookup } = require('@ocku/whois');
 ```
 
 ```js
 // Query an ipv4 address
-console.log(await lookup('1.1.1.1')) // ...
+console.log(await lookup('1.1.1.1')); // ...
 
 // Query an ipv6 address
-console.log(await lookup('2606:4700:4700::1001')) // ...
+console.log(await lookup('2606:4700:4700::1001')); // ...
 
 // Query a domain
-console.log(await lookup('lost.st')) // ...
+console.log(await lookup('lost.st')); // ...
 
 // Query a domain with punycode
-console.log(await lookup('lost.xn--tckwe')) // ...
+console.log(await lookup('lost.xn--tckwe')); // ...
 
 // Query a tld
-console.log(await lookup('de')) // ...
+console.log(await lookup('de')); // ...
 ```
 
 ### Configuration
@@ -42,35 +42,34 @@ Additionally, the behavior of the function can be customized with the optional `
 
 ```ts
 type LookupOptions = {
-  follow?: number // the maximum number of servers to follow.
+  follow?: number; // the maximum number of servers to follow.
 
   // type LookupServer
   server?: {
     // an optional server to use instead of choosing one automatically.
-    host: string // the host to connect to (add the port below, not here!)
-    port?: number // [default: 43] - this can be omitted most times.
+    host: string; // the host to connect to (add the port below, not here!)
+    port?: number; // [default: 43] - this can be omitted most times.
 
     // when a whois message is sent, the (prefix, domain, and suffix) are joined by spaces.
     // this means that there's no need for trailing or leading spaces on {prefix} or {suffix}.
-    prefix?: string // [default: ''] - a string to send before the domain (eg: '-T dn,ace' or 'n').
-    suffix?: string // [default: ''] - a string to send after the domain (uncommon, but here just in case).
-  }
-  timeout?: number // a timeout in milliseconds.
-  encoding?: BufferEncoding // [default: 'utf-8'] - the encoding for the socket to use.
-
+    prefix?: string; // [default: ''] - a string to send before the domain, usually handles (eg: '-T dn,ace' or 'n').
+    suffix?: string; // [default: ''] - a string to send after the domain (uncommon, but here just in case).
+    encoding?: string; // supported encodings: https://nodejs.org/docs/v20.1.0/api/util.html#encodings-supported-by-default-with-full-icu-data
+  };
+  timeout?: number; // a timeout in milliseconds.
   // allows you to make the request through a SOCKS proxy.
   // when present, socksClientOptions is directly passed to SocksClient.createConnection(1).
   // see https://www.npmjs.com/package/socks#quick-start-example
-  socksClientOptions?: SocksClientOptions
-}
+  socksClientOptions?: SocksClientOptions;
+};
 ```
 
 It can be used like this:
 
 ```js
-const options = { timeout: 10000 }
-const res = await lookup('lost.st', options)
-console.log(res) // ...
+const options = { timeout: 10000 };
+const res = await lookup('lost.st', options);
+console.log(res); // ...
 ```
 
 ## Punycode
@@ -80,12 +79,12 @@ Punycode domain lookups are supported, but to keep overhead low, special Unicode
 For clarity:
 
 ```js
-const { toASCII } = require('punycode/')
+const { toASCII } = require('punycode/');
 // this is good
-await lookup('nic.xn--tckwe') // works
-await lookup(toASCII('nic.コム')) // works
+await lookup('nic.xn--tckwe'); // works
+await lookup(toASCII('nic.コム')); // works
 // this is bad
-await lookup('nic.コム') // goes through IANA, returns "No match"
+await lookup('nic.コム'); // goes through IANA, returns "No match"
 ```
 
 ## Requirements

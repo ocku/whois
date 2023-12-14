@@ -57,11 +57,11 @@ describe('whois', () => {
     const mockLookupInternal = t.mock.method(
       lookupInternalUtil,
       'lookupInternal',
-      () => 'refer: whois.nic.de',
+      () => 'refer: whois.denic.de',
       { times: 2 }
     );
 
-    await lookup('ja.de');
+    await lookup('test.local');
 
     assert(
       mockLookupInternal.mock.calls.at(1)?.arguments[1]?.server.prefix ===

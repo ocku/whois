@@ -11,12 +11,9 @@ import { SocksClient } from 'socks';
 /** perform a single lookup and return its response */
 export const lookupInternal = async (
   domain: string,
-  options: Pick<
-    LookupOptions,
-    'timeout' | 'server' | 'encoding' | 'socksClientOptions'
-  >
+  options: Pick<LookupOptions, 'timeout' | 'server' | 'socksClientOptions'>
 ): Promise<string> => {
-  const { timeout, server, encoding, socksClientOptions } = options;
+  const { timeout, server, socksClientOptions } = options;
 
   const destination = {
     host: server.host,
@@ -33,6 +30,5 @@ export const lookupInternal = async (
       ).socket
     : await connect({ timeout, ...destination });
 
-  socket.setEncoding(encoding ?? 'utf-8');
   return query(socket, domain, server);
 };

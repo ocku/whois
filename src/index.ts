@@ -32,7 +32,7 @@ export const lookup = async (
       return res;
     }
 
-    server.host = referral;
+    server = { host: referral };
 
     if (referral in SPECIAL_HOSTS) {
       server = {
