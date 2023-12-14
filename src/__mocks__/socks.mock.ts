@@ -1,5 +1,5 @@
 // types
-import { SocksClientOptions } from 'socks'
+import { SocksClientOptions } from 'socks';
 
 export const socksClientOptionsMock = {
   command: 'connect',
@@ -12,4 +12,4 @@ export const socksClientOptionsMock = {
     port: 8000,
     type: 5
   }
-} as SocksClientOptions
+} as SocksClientOptions;

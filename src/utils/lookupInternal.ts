@@ -1,12 +1,12 @@
 // types
-import type { LookupOptions } from '../types/whois.types'
+import type { LookupOptions } from '../types/whois.types';
 // utils
-import { connect } from './connect'
-import { query } from './query'
+import { connect } from './connect';
+import { query } from './query';
 // constants
-import { DEFAULT_SRV_PORT } from '../constants/defaults'
-// vendors
-import { SocksClient } from 'socks'
+import { DEFAULT_SRV_PORT } from '../constants/defaults';
+// libs
+import { SocksClient } from 'socks';
 
 /** perform a single lookup and return its response */
 export const lookupInternal = async (
@@ -16,12 +16,12 @@ export const lookupInternal = async (
     'timeout' | 'server' | 'encoding' | 'socksClientOptions'
   >
 ): Promise<string> => {
-  const { timeout, server, encoding, socksClientOptions } = options
+  const { timeout, server, encoding, socksClientOptions } = options;
 
   const destination = {
     host: server.host,
     port: server.port ?? DEFAULT_SRV_PORT
-  }
+  };
 
   const socket = socksClientOptions
     ? (
@@ -31,8 +31,8 @@ export const lookupInternal = async (
           destination
         })
       ).socket
-    : await connect({ timeout, ...destination })
+    : await connect({ timeout, ...destination });
 
-  socket.setEncoding(encoding ?? 'utf-8')
-  return query(socket, domain, server)
-}
+  socket.setEncoding(encoding ?? 'utf-8');
+  return query(socket, domain, server);
+};

@@ -1,16 +1,16 @@
-import { SocksClientOptions } from 'socks'
+import type { SocksClientOptions } from 'socks';
 
 export type LookupServer = {
-  host: string
-  port?: number
-  prefix?: string
-  suffix?: string
-}
+  host: string;
+  port?: number;
+  prefix?: string;
+  suffix?: string;
+};
 
 export type LookupOptions = {
-  follow: number
-  server: LookupServer
-  timeout?: number
-  encoding?: BufferEncoding
-  socksClientOptions?: SocksClientOptions
-}
+  follow: number;
+  server: LookupServer;
+  timeout?: number;
+  encoding?: BufferEncoding;
+  socksClientOptions?: SocksClientOptions;
+};
