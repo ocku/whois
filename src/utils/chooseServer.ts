@@ -18,15 +18,15 @@ export const chooseServer = (domain: string): LookupServer => {
     };
   }
 
-  const tld = domain.split('.').at(-1)?.toLowerCase();
-
-  if (!tld) {
+  const domainChunks = domain.split('.');
+  if (domainChunks.length === 1) {
     return {
       host: IANA_HOST,
       ...SPECIAL_HOSTS[IANA_HOST]
     };
   }
 
+  const tld = domainChunks[domainChunks.length - 1];
   if (tld in servers) {
     const host = servers[tld];
     return host in SPECIAL_HOSTS

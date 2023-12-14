@@ -14,10 +14,15 @@ export const query = async (
     const suffix = server.suffix ?? '';
     const message = [prefix, domain, suffix].join(' ').trim();
 
-    let buffer = '';
+    let output = new Uint8Array();
+    const decoder = new TextDecoder(server.encoding);
+
     socket.write(`${message}\r\n`);
-    socket.once('close', () => resolve(buffer));
-    socket.on('data', (data: string) => (buffer += data));
+    socket.once('close', () => resolve(decoder.decode(output)));
+    socket.on(
+      'data',
+      (data) => (output = Buffer.concat([output, Buffer.from(data)]))
+    );
     socket.once('timeout', () => {
       // prevent ECONNRESET while reading after timeout
       socket.destroy();
