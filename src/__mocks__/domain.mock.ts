@@ -1,1 +1,1 @@
-export const domainMock = 'domain'
+export const domainMock = 'domain';
