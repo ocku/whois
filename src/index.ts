@@ -3,11 +3,11 @@ import type { LookupOptions } from './types/whois.types';
 // utils
 import { lookupInternal } from './utils/lookupInternal';
 import { chooseServer } from './utils/chooseServer';
+import { isValidRef } from './utils/isValidRef';
 // constants
 import { SPECIAL_HOSTS } from './constants/servers';
 import { REFERRAL_PATTERN } from './constants/regex';
 import { MAX_FOLLOW } from './constants/defaults';
-import { isValidRef } from './utils/isValidRef';
 
 /**
  * Perform a whois lookup on {domain}
