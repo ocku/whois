@@ -1,5 +1,5 @@
 // types
-import { SocksClientOptions } from 'socks';
+import type { SocksClientOptions } from 'socks';
 
 export const socksClientOptionsMock = {
   command: 'connect',
