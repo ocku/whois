@@ -56,13 +56,13 @@ describe('utils / query', () => {
     assert(res === '__timeout__');
   });
 
-  it('should resolve on close with the complete buffer received', async (t) => {
+  it('should resolve on end with the complete buffer received', async (t) => {
     const socket = new net.Socket();
 
     t.mock.method(socket, 'write', () =>
       setTimeout(() => {
         ['1', '2', '3'].map((s) => socket.emit('data', s));
-        socket.emit('close');
+        socket.emit('end');
       }, 100)
     );
 
@@ -76,7 +76,7 @@ describe('utils / query', () => {
 
     const mockWrite = t.mock.method(socket, 'write', () =>
       setTimeout(() => {
-        socket.emit('close');
+        socket.emit('end');
       }, 100)
     );
 

@@ -1,5 +1,7 @@
 // types
 import type { LookupServer } from '../types/whois.types';
+// utils
+import { guardSocket } from './guardSocket';
 // libs
 import net from 'node:net';
 
@@ -13,20 +15,19 @@ export const query = async (
     const prefix = server.prefix ?? '';
     const suffix = server.suffix ?? '';
     const message = [prefix, domain, suffix].join(' ').trim();
-
-    let output = new Uint8Array();
     const decoder = new TextDecoder(server.encoding);
+    let output = new Uint8Array();
 
+    guardSocket(socket, reject);
     socket.write(`${message}\r\n`);
-    socket.once('close', () => resolve(decoder.decode(output)));
+
     socket.on(
       'data',
       (data) => (output = Buffer.concat([output, Buffer.from(data)]))
     );
-    socket.once('timeout', () => {
-      // prevent ECONNRESET while reading after timeout
-      socket.destroy();
-      reject(new Error('query: timeout exceeded'));
+
+    socket.once('end', () => {
+      socket.removeAllListeners();
+      resolve(decoder.decode(output));
     });
-    socket.once('error', reject);
   });
