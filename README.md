@@ -1,9 +1,6 @@
-# @ocku/whois ![npm](https://img.shields.io/npm/v/%40ocku%2Fwhois)
+# @ocku/whois
 
 A low overhead asynchronous whois client for Node.js.
-
-![npm](https://img.shields.io/npm/dw/%40ocku%2Fwhois)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/%40ocku%2Fwhois)
 
 ## Usage
 
