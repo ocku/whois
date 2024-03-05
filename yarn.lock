@@ -80,9 +80,9 @@
     fastq "^1.6.0"
 
 "@ocku/whois-servers@^1.0.0":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@ocku/whois-servers/-/whois-servers-1.0.8.tgz#3edba18a5173fa265e27e21054e8c30f82918940"
-  integrity sha512-AJxapZoYqPT47dk5H9w0opvh8c40t3CSfFSnsE8PsDmO9RFHvGj33zkIBpN6yUiQEqoca1cYdQ5wnN/nkwg/Zw==
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@ocku/whois-servers/-/whois-servers-1.0.9.tgz#c565c209e74cc8eede44659f124f7a6a227d3044"
+  integrity sha512-L7cpvIpkJud06m1LawgcMufyxcYHKEvr7CLp1yM4xfody5giHl+CtbjzKk6LlPa7VVBT8wqr/EHoJgz1ELHHCQ==
 
 "@tsconfig/node-lts@^20.1.0":
   version "20.1.1"
